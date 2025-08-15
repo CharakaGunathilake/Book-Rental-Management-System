@@ -13,8 +13,6 @@ public class UserRequestDto {
     private String firstname;
     @NotNull(message = "Last name cannot be null")
     private String lastname;
-    @NotNull(message = "Username cannot be null")
-    private String username;
     @NotNull(message = "Password cannot be null")
     private String password;
     @NotNull(message = "Email cannot be null")

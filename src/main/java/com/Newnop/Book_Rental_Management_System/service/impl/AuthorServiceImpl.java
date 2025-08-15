@@ -6,6 +6,7 @@ import com.Newnop.Book_Rental_Management_System.repository.AuthorRepository;
 import com.Newnop.Book_Rental_Management_System.service.AuthorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,14 +18,15 @@ public class AuthorServiceImpl implements AuthorService {
     private final ObjectMapper mapper;
     private final AuthorRepository authorRepository;
 
-    @Override
-    public void addAuthor(AuthorRequestDto authorRequestDto) {
 
+    @Override
+    public AuthorResponseDto addAuthor(AuthorRequestDto authorRequestDto) {
+        return null;
     }
 
     @Override
-    public void updateAuthor(AuthorRequestDto authorRequestDto) {
-
+    public AuthorResponseDto updateAuthor(AuthorRequestDto authorRequestDto) {
+        return null;
     }
 
     @Override
@@ -34,16 +36,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorResponseDto getAuthorById(Long authorId) {
-        return null;
-    }
-
-    @Override
-    public AuthorResponseDto getAuthorByName(String authorName) {
-        return null;
-    }
-
-    @Override
-    public AuthorResponseDto getAuthorByBookName(String bookName) {
         return null;
     }
 

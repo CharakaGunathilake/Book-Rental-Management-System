@@ -17,29 +17,20 @@ public class GenreServiceImpl implements GenreService {
     private final GenreRepository genreRepository;
     private final ObjectMapper objectMapper;
 
-    @Override
-    public void addGenre(GenreRequestDto genreRequestDto) {
 
+    @Override
+    public GenreResponseDto addGenre(GenreRequestDto genreRequestDto) {
+        return null;
     }
 
     @Override
-    public void updateGenre(GenreRequestDto genreRequestDto) {
-
+    public GenreResponseDto updateGenre(GenreRequestDto genreRequestDto) {
+        return null;
     }
 
     @Override
     public void deleteGenre(Long genreId) {
 
-    }
-
-    @Override
-    public GenreResponseDto getGenreById(Long genreId) {
-        return null;
-    }
-
-    @Override
-    public GenreResponseDto getGenreByName(String genreName) {
-        return null;
     }
 
     @Override

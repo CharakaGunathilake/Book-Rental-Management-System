@@ -1,20 +1,90 @@
 package com.Newnop.Book_Rental_Management_System.controller;
 
+import com.Newnop.Book_Rental_Management_System.dto.request.BookRequestDto;
+import com.Newnop.Book_Rental_Management_System.dto.response.BookResponseDto;
+import com.Newnop.Book_Rental_Management_System.service.BookService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/books")
+@RequestMapping("/api/v1/book")
 public class BookController {
     // This class handles book-related endpoints.
-    @GetMapping("/test")
-    public String testEndpoint() {
-        log.info("Test endpoint hit");
-        return "Book Controller is working!";
+
+    private final BookService bookService;
+
+    @PostMapping
+    public ResponseEntity<BookResponseDto> addBook(@Valid @RequestBody BookRequestDto bookRequestDto){
+        log.info("Add new Book attempt");
+        return ResponseEntity.status(HttpStatus.CREATED).body(bookService.addBook(bookRequestDto));
+    }
+
+    @PutMapping
+    public ResponseEntity<BookResponseDto> updateBook(@Valid @RequestBody BookRequestDto bookRequestDto){
+        log.info("Update existing Book attempt");
+        return ResponseEntity.ok(bookService.updateBook(bookRequestDto));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<BookResponseDto> deleteBookById(@RequestParam Long id){
+        log.info("Delete existing  Book Attempt");
+        bookService.deleteBook(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(params = "id")
+    public ResponseEntity<BookResponseDto> getBookById(@RequestParam Long id){
+        log.info("Retrieve Book by id attempt");
+        return ResponseEntity.ok(bookService.getBookById(id));
+    }
+
+    @GetMapping(params = "name")
+    public ResponseEntity<BookResponseDto> getBookByName(@RequestParam String name){
+        log.info("Retrieve Book by name attempt");
+        return ResponseEntity.ok(bookService.getBookByName(name));
+    }
+
+    @GetMapping(params = "author_id")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksByAuthorId(@RequestParam("author_id") Long id){
+        log.info("Retrieve Book by author id attempt");
+        return ResponseEntity.ok(bookService.getAllBooksByAuthorId(id));
+    }
+
+    @GetMapping(params = "availability_status")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksByAvailabilityStatus(@RequestParam("availability_status") String status){
+        log.info("Retrieve all Books by availability status attempt");
+        return ResponseEntity.ok(bookService.getAllBooksByAvailabilityStatus(status));
+    }
+
+    @GetMapping(params = "quality")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksByQuality(@RequestParam String quality){
+        log.info("Retrieve all Books by quality attempt");
+        return ResponseEntity.ok(bookService.getAllBooksByQuality(quality));
+    }
+
+    @GetMapping(params = "genre_id")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksGenreId(@RequestParam("genre_id") Long id){
+        log.info("Retrieve all Books by Genre attempt");
+        return ResponseEntity.ok(bookService.getAllBooksByGenreId(id));
+    }
+
+    @GetMapping(params = "published_year")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksByPublishedYear(@RequestParam("published_year") Integer publishedYear){
+        log.info("Retrieve all Books by published year attempt");
+        return ResponseEntity.ok(bookService.getAllBooksByPublishedYear(publishedYear));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<BookResponseDto>> getAllBooks(){
+        log.info("Retrieve all Books attempt");
+        return ResponseEntity.ok(bookService.getAllBooks());
     }
 }

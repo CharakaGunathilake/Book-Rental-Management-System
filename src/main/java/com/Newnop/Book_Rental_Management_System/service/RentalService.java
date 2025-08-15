@@ -8,9 +8,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface RentalService {
-    void addRental(RentalRequestDto rentalRequestDto);
+    RentalResponseDto addRental(RentalRequestDto rentalRequestDto);
 
-    void updateRental(RentalRequestDto rentalRequestDto);
+    RentalResponseDto updateRental(RentalRequestDto rentalRequestDto);
 
     void deleteRental(Long rentalId);
 
@@ -21,10 +21,6 @@ public interface RentalService {
     BigDecimal calculateRentalFee(Long rentalId);
 
     RentalResponseDto getRentalById(Long rentalId);
-
-    RentalResponseDto getRentalByBookId(Long bookId);
-
-    RentalResponseDto getRentalByUserId(Long userId);
 
     List<RentalResponseDto> getAllRentalsByBookId(Long BookId);
 

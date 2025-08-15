@@ -13,8 +13,6 @@ public class User extends PersistedObject{
     private String firstname;
     @Column(name = "last_name", nullable = false)
     private String lastname;
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "email", nullable = false, unique = true)

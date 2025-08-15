@@ -19,14 +19,15 @@ public class RentalServiceImpl implements RentalService {
     private final RentalRepository rentalRepository;
     private final ObjectMapper objectMapper;
 
-    @Override
-    public void addRental(RentalRequestDto rentalRequestDto) {
 
+    @Override
+    public RentalResponseDto addRental(RentalRequestDto rentalRequestDto) {
+        return null;
     }
 
     @Override
-    public void updateRental(RentalRequestDto rentalRequestDto) {
-
+    public RentalResponseDto updateRental(RentalRequestDto rentalRequestDto) {
+        return null;
     }
 
     @Override
@@ -51,16 +52,6 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public RentalResponseDto getRentalById(Long rentalId) {
-        return null;
-    }
-
-    @Override
-    public RentalResponseDto getRentalByBookId(Long bookId) {
-        return null;
-    }
-
-    @Override
-    public RentalResponseDto getRentalByUserId(Long userId) {
         return null;
     }
 

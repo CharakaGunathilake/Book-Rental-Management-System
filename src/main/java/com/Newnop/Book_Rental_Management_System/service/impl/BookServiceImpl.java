@@ -6,6 +6,7 @@ import com.Newnop.Book_Rental_Management_System.repository.BookRepository;
 import com.Newnop.Book_Rental_Management_System.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,13 +19,13 @@ public class BookServiceImpl implements BookService {
     private final ObjectMapper objectMapper;
 
     @Override
-    public void addBook(BookRequestDto bookRequestDto) {
-
+    public BookResponseDto addBook(BookRequestDto bookRequestDto) {
+        return null;
     }
 
     @Override
-    public void updateBook(BookRequestDto bookRequestDto) {
-
+    public BookResponseDto updateBook(BookRequestDto bookRequestDto) {
+        return null;
     }
 
     @Override
@@ -43,17 +44,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookResponseDto> getAllBooksByAuthorName(String authorName) {
-        return List.of();
-    }
-
-    @Override
-    public List<BookResponseDto> getAllBooksByAuthorId(String authorId) {
-        return List.of();
-    }
-
-    @Override
-    public List<BookResponseDto> getAllBooksByGenre(String genre) {
+    public List<BookResponseDto> getAllBooksByAuthorId(Long authorId) {
         return List.of();
     }
 
