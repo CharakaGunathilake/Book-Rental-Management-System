@@ -1,14 +1,21 @@
 package com.Newnop.Book_Rental_Management_System.entity;
 
+import com.Newnop.Book_Rental_Management_System.entity.persisted_object.PersistedObject;
 import com.Newnop.Book_Rental_Management_System.enums.RentalStatus;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "rentals")
-public class Rental extends PersistedObject{
+public class Rental extends PersistedObject {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;

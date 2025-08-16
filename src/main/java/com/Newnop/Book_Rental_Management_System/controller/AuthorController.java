@@ -31,15 +31,15 @@ public class AuthorController {
 
     //Endpoint for updating and Author
     @PutMapping
-    public ResponseEntity<AuthorResponseDto> updateAuthor(@Valid @RequestBody AuthorRequestDto authorRequestDto) {
-        log.info("Update existing Author attempt");
-        return ResponseEntity.ok(authorService.updateAuthor(authorRequestDto));
+    public ResponseEntity<AuthorResponseDto> updateAuthor(@RequestParam Long id, @Valid @RequestBody AuthorRequestDto authorRequestDto) {
+        log.info("Update existing Author by Id: {} attempt", id);
+        return ResponseEntity.ok(authorService.updateAuthor(id, authorRequestDto));
     }
 
     //Endpoint to delete an author by id
     @DeleteMapping
-    public ResponseEntity<?> deleteAuthor(@RequestParam Long id) {
-        log.info("Delete existing Author attempt");
+    public ResponseEntity<Void> deleteAuthor(@RequestParam Long id) {
+        log.info("Delete existing Author by Id: {} attempt", id);
         authorService.deleteAuthor(id);
         return ResponseEntity.noContent().build();
 
@@ -48,15 +48,8 @@ public class AuthorController {
     //Endpoint to retrieve an author by id
     @GetMapping
     public ResponseEntity<AuthorResponseDto> getAuthorById(@RequestParam Long id) {
-        log.info("Retrieve Author by Id attempt");
+        log.info("Retrieve Author by Id: {} attempt", id);
         return ResponseEntity.ok(authorService.getAuthorById(id));
-    }
-
-    //Endpoint to retrieve an author by book id
-    @GetMapping(value = "/by_book")
-    public ResponseEntity<AuthorResponseDto> getAuthorByBookId(@RequestParam Long id){
-        log.info("Retrieve Author by book id attempt");
-        return ResponseEntity.ok(authorService.getAuthorByBookId(id));
     }
 
     //Endpoint to retrieve all authors

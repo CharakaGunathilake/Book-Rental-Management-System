@@ -8,14 +8,11 @@ import java.util.List;
 public interface AuthorService {
     AuthorResponseDto addAuthor(AuthorRequestDto authorRequestDto);
 
-    AuthorResponseDto updateAuthor(AuthorRequestDto authorRequestDto);
+    AuthorResponseDto updateAuthor(Long Id, AuthorRequestDto authorRequestDto);
 
     void deleteAuthor(Long authorId);
 
     AuthorResponseDto getAuthorById(Long authorId);
-
-
-    AuthorResponseDto getAuthorByBookId(Long bookId);
 
     List<AuthorResponseDto> getAllAuthors();
 }

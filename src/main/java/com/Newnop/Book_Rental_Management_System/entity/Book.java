@@ -1,11 +1,18 @@
 package com.Newnop.Book_Rental_Management_System.entity;
 
+import com.Newnop.Book_Rental_Management_System.entity.persisted_object.PersistedObject;
 import com.Newnop.Book_Rental_Management_System.enums.AvailabilityStatus;
 import com.Newnop.Book_Rental_Management_System.enums.BookQuality;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "books")
 public class Book extends PersistedObject {

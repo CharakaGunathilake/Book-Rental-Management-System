@@ -23,27 +23,27 @@ public class RentalController {
     private final RentalService rentalService;
 
     @PostMapping
-    public ResponseEntity<?> addRental(@Valid @RequestBody RentalRequestDto rentalRequestDto) {
+    public ResponseEntity<RentalResponseDto> addRental(@Valid @RequestBody RentalRequestDto rentalRequestDto) {
         log.info("Create new Rental attempt");
         return ResponseEntity.status(HttpStatus.CREATED).body(rentalService.addRental(rentalRequestDto));
     }
 
     @PutMapping
-    public ResponseEntity<?> updateRental(@Valid @RequestBody RentalRequestDto rentalRequestDto) {
-        log.info("Update existing Rental attempt");
-        return ResponseEntity.ok(rentalService.updateRental(rentalRequestDto));
+    public ResponseEntity<RentalResponseDto> updateRental(@RequestParam Long id, @Valid @RequestBody RentalRequestDto rentalRequestDto) {
+        log.info("Update existing Rental by id: {} attempt", id);
+        return ResponseEntity.ok(rentalService.updateRental(id, rentalRequestDto));
     }
 
     @PatchMapping("/cancel")
     public ResponseEntity<Void> cancelRental(@RequestParam Long id) {
-        log.info("Cancel rental attempt");
+        log.info("Cancel rental by id: {} attempt", id);
         rentalService.cancelRental(id);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/return")
     public ResponseEntity<Void> returnRental(@RequestParam Long id) {
-        log.info("Return rental attempt");
+        log.info("Return rental by id: {} attempt", id);
         rentalService.returnBook(id);
         return ResponseEntity.noContent().build();
 
@@ -51,50 +51,50 @@ public class RentalController {
 
     @DeleteMapping
     public ResponseEntity<Void> deleteRental(@RequestParam Long id) {
-        log.info("Delete existing Rental attempt");
+        log.info("Delete existing Rental by id: {} attempt", id);
         rentalService.deleteRental(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/calculate")
     public ResponseEntity<BigDecimal> calculateRentalPrice(@RequestParam Long id) {
-        log.info("Calculate rental price attempt");
+        log.info("Calculate rental price by id: {} attempt", id);
         return ResponseEntity.ok(rentalService.calculateRentalFee(id));
     }
 
     @GetMapping
     public ResponseEntity<RentalResponseDto> getRentalById(@RequestParam Long id) {
-        log.info("Retrieve rental attempt");
+        log.info("Retrieve rental by id: {} attempt", id);
         return ResponseEntity.ok(rentalService.getRentalById(id));
     }
 
     @GetMapping("/by_user")
     public ResponseEntity<List<RentalResponseDto>> getAllRentalsByUserId(@RequestParam Long id) {
-        log.info("Retrieve all rentals for user attempt");
+        log.info("Retrieve all rentals for user with id:{}  attempt", id);
         return ResponseEntity.ok(rentalService.getAllRentalsByUserId(id));
     }
 
     @GetMapping("/by_book")
     public ResponseEntity<List<RentalResponseDto>> getAllRentalsByBookId(@RequestParam Long id) {
-        log.info("Retrieve all rentals for book attempt");
+        log.info("Retrieve all rentals for book with id: {} attempt",id);
         return ResponseEntity.ok(rentalService.getAllRentalsByBookId(id));
     }
 
     @GetMapping("/by_status")
     public ResponseEntity<List<RentalResponseDto>> getAllRentalsByStatus(@RequestParam String status) {
-        log.info("Retrieve all rentals by status attempt");
+        log.info("Retrieve all rentals by status: {} attempt", status);
         return ResponseEntity.ok(rentalService.getAllRentalsByStatus(status));
     }
 
     @GetMapping("/by_rented_date")
     public ResponseEntity<List<RentalResponseDto>> getAllRentalsByRentedDate(@RequestParam LocalDate date) {
-        log.info("Retrieve all rentals by rented date attempt");
+        log.info("Retrieve all rentals by rented date: {} attempt", date);
         return ResponseEntity.ok(rentalService.getAllRentalsByRentedDate(date));
     }
 
     @GetMapping("/by_return_date")
     public ResponseEntity<List<RentalResponseDto>> getAllRentalsByReturnDate(@RequestParam LocalDate date) {
-        log.info("Retrieve all rentals by return date attempt");
+        log.info("Retrieve all rentals by return date: {} attempt", date);
         return ResponseEntity.ok(rentalService.getAllRentalsByReturnDate(date));
     }
 

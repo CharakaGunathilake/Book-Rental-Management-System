@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthorRequestDto {
     @NotNull(message = "Author name cannot be null")
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Author name must contain only letters and spaces")
+    @Pattern(regexp = "^[a-zA-Z.\\s]+$", message = "Author name must contain only letters, spaces and dots")
     private String name;
     private String biography;
 }

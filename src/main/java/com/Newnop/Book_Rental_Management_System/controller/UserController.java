@@ -28,51 +28,51 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<UserResponseDto> updateUser(@Valid @RequestBody UserRequestDto userRequestDto) {
-        log.info("Update existing User attempt");
-        return ResponseEntity.ok(userService.updateUser(userRequestDto));
+    public ResponseEntity<UserResponseDto> updateUser(@RequestParam Long id, @Valid @RequestBody UserRequestDto userRequestDto) {
+        log.info("Update existing User by id:{} attempt", id);
+        return ResponseEntity.ok(userService.updateUser(id, userRequestDto));
     }
 
     @PatchMapping("/address")
     public ResponseEntity<UserResponseDto> updateUserAddress(@RequestParam Long id, @Valid @RequestBody AddressRequestDto addressRequestDto) {
-        log.info("Update User address attempt");
+        log.info("Update User address attempt: id: {}", id);
         return ResponseEntity.ok(userService.updateUserAddress(id, addressRequestDto));
     }
 
     @PatchMapping("/status")
     public ResponseEntity<UserResponseDto> updateUserStatus(@RequestParam Long id, @RequestParam String status) {
-        log.info("Update User status attempt");
+        log.info("Update User status attempt: id: {}, status: {}", id, status);
         return ResponseEntity.ok(userService.updateUserStatus(id, status));
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteUser(@RequestParam Long id) {
-        log.info("Delete existing User attempt");
+        log.info("Delete existing User attempt by id: {}", id);
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity<UserResponseDto> getUserById(@RequestParam Long id) {
-        log.info("Retrieve User by id attempt");
+        log.info("Retrieve User by id attempt: {}", id);
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @GetMapping("/by_email")
     public ResponseEntity<UserResponseDto> getUserByEmail(@RequestParam String email) {
-        log.info("Retrieve User by email attempt");
+        log.info("Retrieve User by email attempt: {}", email);
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
     @GetMapping("/by_status")
     public ResponseEntity<List<UserResponseDto>> getUsersByStatus(@RequestParam String status) {
-        log.info("Retrieve all Users by status attempt");
+        log.info("Retrieve all Users by status attempt: {}", status);
         return ResponseEntity.ok(userService.getUsersByStatus(status));
     }
 
     @GetMapping("/by_role")
     public ResponseEntity<List<UserResponseDto>> getUsersByRole(@RequestParam String role) {
-        log.info("Retrieve all Users by role attempt");
+        log.info("Retrieve all Users by role attempt: {}", role);
         return ResponseEntity.ok(userService.getUsersByRole(role));
     }
 

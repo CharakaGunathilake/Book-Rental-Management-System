@@ -27,14 +27,14 @@ public class GenreController {
     }
 
     @PutMapping
-    public ResponseEntity<GenreResponseDto> updateGenre(@Valid @RequestBody GenreRequestDto genreRequestDto) {
-        log.info("Update existing Genre attempt");
-        return ResponseEntity.ok(genreService.updateGenre(genreRequestDto));
+    public ResponseEntity<GenreResponseDto> updateGenre(@RequestParam Long id, @Valid @RequestBody GenreRequestDto genreRequestDto) {
+        log.info("Update existing Genre by Id:{} attempt", id);
+        return ResponseEntity.ok(genreService.updateGenre(id, genreRequestDto));
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteGenre(@RequestParam Long id) {
-        log.info("Delete existing Genre attempt");
+        log.info("Delete existing Genre by Id:{} attempt", id);
         genreService.deleteGenre(id);
         return ResponseEntity.noContent().build();
 

@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
     UserResponseDto addUser(UserRequestDto dto);
 
-    UserResponseDto updateUser(UserRequestDto dto);
+    UserResponseDto updateUser(Long id, UserRequestDto dto);
 
     UserResponseDto updateUserAddress(Long userId, AddressRequestDto address);
 

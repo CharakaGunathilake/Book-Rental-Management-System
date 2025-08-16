@@ -10,7 +10,7 @@ import java.util.List;
 public interface RentalService {
     RentalResponseDto addRental(RentalRequestDto rentalRequestDto);
 
-    RentalResponseDto updateRental(RentalRequestDto rentalRequestDto);
+    RentalResponseDto updateRental(Long id,RentalRequestDto rentalRequestDto);
 
     void deleteRental(Long rentalId);
 

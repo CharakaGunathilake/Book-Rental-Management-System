@@ -1,4 +1,4 @@
-package com.Newnop.Book_Rental_Management_System.entity;
+package com.Newnop.Book_Rental_Management_System.entity.persisted_object;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

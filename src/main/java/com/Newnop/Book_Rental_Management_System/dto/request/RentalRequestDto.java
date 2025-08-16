@@ -16,5 +16,5 @@ public class RentalRequestDto {
     @NotNull(message = "User ID cannot be null")
     private Long userId;
     @NotNull(message = "Return date cannot be null")
-    private LocalDate expectedReturnDate;
+    private Integer expectedReturnDate;
 }

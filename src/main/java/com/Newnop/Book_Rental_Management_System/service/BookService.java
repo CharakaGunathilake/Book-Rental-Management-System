@@ -8,7 +8,11 @@ import java.util.List;
 public interface BookService {
     BookResponseDto addBook(BookRequestDto bookRequestDto);
 
-    BookResponseDto updateBook(BookRequestDto bookRequestDto);
+    BookResponseDto updateBook(Long id, BookRequestDto bookRequestDto);
+
+    BookResponseDto updateBookAvailabilityStatus(Long bookId, String status);
+
+    BookResponseDto updateBookQuality(Long bookId, String quality);
 
     void deleteBook(Long bookId);
 
