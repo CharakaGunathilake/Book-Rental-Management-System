@@ -45,6 +45,12 @@ public class RentalServiceImpl implements RentalService {
         User user = userRepository.findById(rentalRequestDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + rentalRequestDto.getUserId()));
 
+        //Check if the book is already rented
+        if(book.getAvailabilityStatus().equals(AvailabilityStatus.RENTED)){
+            log.error("Selected Book: {} is already rented", book.getId());
+            throw new RentalServiceException("Selected Book is already rented");
+        }
+
         // Convert DTO to entity
         Rental rental = RentalMapper.toEntity(rentalRequestDto, book, user);
         // Set book status to rented

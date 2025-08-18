@@ -20,7 +20,7 @@ public class User extends PersistedObject {
     private String firstname;
     @Column(name = "last_name", nullable = false)
     private String lastname;
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
     @Column(name = "email", nullable = false, unique = true)
     private String email;

@@ -8,8 +8,10 @@ import com.Newnop.Book_Rental_Management_System.repository.GenreRepository;
 import com.Newnop.Book_Rental_Management_System.service.GenreService;
 import com.Newnop.Book_Rental_Management_System.utils.common_utils.ValidationUtils;
 import com.Newnop.Book_Rental_Management_System.utils.genre_utils.GenreMapper;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,24 +45,29 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public GenreResponseDto updateGenre(Long id, GenreRequestDto genreRequestDto) {
+        // Validate the genreRequestDto
+        ValidationUtils.validateId("Genre", id);
+
+        // Fetch existing genre by id
+        Genre exitingGenre = genreRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Genre not found by Id: " + id));
+
+        // Update the existing genre
+        exitingGenre.setName(genreRequestDto.getName());
+
+        // Save entity
+        Genre updatedGenre;
         try {
-            // Validate the genreRequestDto
-            ValidationUtils.validateId("Genre", id);
-
-            // Map DTO to entity
-            Genre genre = GenreMapper.toEntity(genreRequestDto);
-
-            // Save entity
-            Genre updatedGenre = genreRepository.save(genre);
-
-            log.info("Genre with ID {} updated successfully", updatedGenre.getId());
-            // Map to response DTO
-            return GenreMapper.toResponseDto(updatedGenre);
-
-        } catch (Exception e) {
+            updatedGenre = genreRepository.save(exitingGenre);
+        } catch (DataAccessException e) {
             log.error("Error while updating genre with ID {}: {}", id, e.getMessage(), e);
             throw new GenreServiceException("Error while updating genre", e);
         }
+
+        log.info("Genre with ID {} updated successfully", updatedGenre.getId());
+        // Map to response DTO
+        return GenreMapper.toResponseDto(updatedGenre);
+
     }
 
     @Override
@@ -71,7 +78,7 @@ public class GenreServiceImpl implements GenreService {
 
             // Check if the genre exists
             if (!genreRepository.existsById(genreId)) {
-                log.warn("Genre with ID {} not found", genreId);
+                log.error("Genre with ID {} not found", genreId);
                 throw new GenreServiceException("Genre not found with ID: " + genreId);
             }
 

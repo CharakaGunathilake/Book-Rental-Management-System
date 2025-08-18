@@ -33,7 +33,7 @@ public class CalculationUtils {
         long daysRented = DAYS.between(rentedDate, actualReturnDate);
 
         if (daysRented < 0) {
-            throw new IllegalArgumentException("Actual return date cannot be before rented date.");
+            daysRented = Math.abs(daysRented);
         }
 
         // Ensure at least 1 day is charged

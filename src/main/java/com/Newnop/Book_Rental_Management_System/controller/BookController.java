@@ -33,13 +33,13 @@ public class BookController {
         return ResponseEntity.ok(bookService.updateBook(id, bookRequestDto));
     }
 
-    @PatchMapping(params = "id,availability_status")
-    public ResponseEntity<BookResponseDto> updateBookAvailabilityStatus(@RequestParam Long id, @RequestParam("availability_status") String availabilityStatus) {
+    @PatchMapping("/availability")
+    public ResponseEntity<BookResponseDto> updateBookAvailabilityStatus(@RequestParam Long id, @RequestParam String status) {
         log.info("Update existing Book availability status by Id: {} attempt", id);
-        return ResponseEntity.ok(bookService.updateBookAvailabilityStatus(id, availabilityStatus));
+        return ResponseEntity.ok(bookService.updateBookAvailabilityStatus(id, status));
     }
 
-    @PatchMapping(params = "id,quality")
+    @PatchMapping("/quality")
     public ResponseEntity<BookResponseDto> updateBookQuality(@RequestParam Long id, @RequestParam String quality) {
         log.info("Update existing Book quality by Id: {} attempt", id);
         return ResponseEntity.ok(bookService.updateBookQuality(id, quality));
@@ -52,44 +52,44 @@ public class BookController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(params = "id")
+    @GetMapping
     public ResponseEntity<BookResponseDto> getBookById(@RequestParam Long id) {
         log.info("Retrieve Book by id: {} attempt", id);
         return ResponseEntity.ok(bookService.getBookById(id));
     }
 
-    @GetMapping(params = "name")
+    @GetMapping("/name")
     public ResponseEntity<BookResponseDto> getBookByName(@RequestParam String name) {
         log.info("Retrieve Book by name: {} attempt", name);
         return ResponseEntity.ok(bookService.getBookByName(name));
     }
 
-    @GetMapping(params = "author")
-    public ResponseEntity<List<BookResponseDto>> getAllBooksByAuthorId(@RequestParam("author") Long id) {
+    @GetMapping("/author")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksByAuthorId(@RequestParam Long id) {
         log.info("Retrieve Book by author id: {} attempt", id);
         return ResponseEntity.ok(bookService.getAllBooksByAuthorId(id));
     }
 
-    @GetMapping(params = "availability_status")
-    public ResponseEntity<List<BookResponseDto>> getAllBooksByAvailabilityStatus(@RequestParam("availability_status") String status) {
+    @GetMapping("/availability")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksByAvailabilityStatus(@RequestParam String status) {
         log.info("Retrieve all Books by availability status: {} attempt", status);
         return ResponseEntity.ok(bookService.getAllBooksByAvailabilityStatus(status));
     }
 
-    @GetMapping(params = "quality")
+    @GetMapping("/quality")
     public ResponseEntity<List<BookResponseDto>> getAllBooksByQuality(@RequestParam String quality) {
         log.info("Retrieve all Books by quality: {} attempt", quality);
         return ResponseEntity.ok(bookService.getAllBooksByQuality(quality));
     }
 
-    @GetMapping(params = "genre")
-    public ResponseEntity<List<BookResponseDto>> getAllBooksGenreId(@RequestParam("genre") Long id) {
+    @GetMapping("/genre")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksGenreId(@RequestParam Long id) {
         log.info("Retrieve all Books by Genre_Id: {} attempt", id);
         return ResponseEntity.ok(bookService.getAllBooksByGenreId(id));
     }
 
-    @GetMapping(params = "published_year")
-    public ResponseEntity<List<BookResponseDto>> getAllBooksByPublishedYear(@RequestParam("published_year") String publishedYear) {
+    @GetMapping("/published")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksByPublishedYear(@RequestParam String publishedYear) {
         log.info("Retrieve all Books by published year: {} attempt", publishedYear);
         return ResponseEntity.ok(bookService.getAllBooksByPublishedYear(publishedYear));
     }

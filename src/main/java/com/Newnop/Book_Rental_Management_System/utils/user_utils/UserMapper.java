@@ -32,6 +32,7 @@ public class UserMapper {
                 .phoneNumber(user.getPhoneNumber())
                 .address(AddressMapper.toResponseDto(user.getAddress()))
                 .userRole(user.getUserRole())
+                .userStatus(user.getUserStatus())
                 .build();
     }
 

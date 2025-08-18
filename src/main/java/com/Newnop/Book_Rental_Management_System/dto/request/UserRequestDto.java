@@ -17,7 +17,6 @@ public class UserRequestDto {
     @Pattern(regexp = "^[A-Za-z]+$", message = "Last name must contain only letters")
     @NotNull(message = "Last name cannot be null")
     private String lastname;
-    @NotNull(message = "Password cannot be null")
     private String password;
     @Email(message = "Email should be valid")
     @NotNull(message = "Email cannot be null")
