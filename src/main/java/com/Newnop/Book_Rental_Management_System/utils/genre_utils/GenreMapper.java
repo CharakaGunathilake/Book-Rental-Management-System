@@ -3,7 +3,6 @@ package com.Newnop.Book_Rental_Management_System.utils.genre_utils;
 import com.Newnop.Book_Rental_Management_System.dto.request.GenreRequestDto;
 import com.Newnop.Book_Rental_Management_System.dto.response.GenreResponseDto;
 import com.Newnop.Book_Rental_Management_System.entity.Genre;
-import com.Newnop.Book_Rental_Management_System.enums.ActiveStatus;
 
 import java.util.UUID;
 

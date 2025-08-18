@@ -20,6 +20,6 @@ public class BookResponseDto {
     private GenreResponseDto genre;
     private AvailabilityStatus availabilityStatus;
     private String language;
-    private Integer publishedYear;
+    private String publishedYear;
     private BookQuality bookQuality;
 }

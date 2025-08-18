@@ -57,9 +57,9 @@ public class RentalController {
     }
 
     @GetMapping("/calculate")
-    public ResponseEntity<BigDecimal> calculateRentalPrice(@RequestParam Long id) {
+    public ResponseEntity<BigDecimal> calculateRentalPrice(@RequestParam Long id, @RequestParam("date")  LocalDate returnDate) {
         log.info("Calculate rental price by id: {} attempt", id);
-        return ResponseEntity.ok(rentalService.calculateRentalFee(id));
+        return ResponseEntity.ok(rentalService.calculateRentalFee(id, returnDate));
     }
 
     @GetMapping
@@ -68,31 +68,31 @@ public class RentalController {
         return ResponseEntity.ok(rentalService.getRentalById(id));
     }
 
-    @GetMapping("/by_user")
+    @GetMapping("/user")
     public ResponseEntity<List<RentalResponseDto>> getAllRentalsByUserId(@RequestParam Long id) {
         log.info("Retrieve all rentals for user with id:{}  attempt", id);
         return ResponseEntity.ok(rentalService.getAllRentalsByUserId(id));
     }
 
-    @GetMapping("/by_book")
+    @GetMapping("/book")
     public ResponseEntity<List<RentalResponseDto>> getAllRentalsByBookId(@RequestParam Long id) {
         log.info("Retrieve all rentals for book with id: {} attempt",id);
         return ResponseEntity.ok(rentalService.getAllRentalsByBookId(id));
     }
 
-    @GetMapping("/by_status")
+    @GetMapping("/status")
     public ResponseEntity<List<RentalResponseDto>> getAllRentalsByStatus(@RequestParam String status) {
         log.info("Retrieve all rentals by status: {} attempt", status);
         return ResponseEntity.ok(rentalService.getAllRentalsByStatus(status));
     }
 
-    @GetMapping("/by_rented_date")
+    @GetMapping("/rented_date")
     public ResponseEntity<List<RentalResponseDto>> getAllRentalsByRentedDate(@RequestParam LocalDate date) {
         log.info("Retrieve all rentals by rented date: {} attempt", date);
         return ResponseEntity.ok(rentalService.getAllRentalsByRentedDate(date));
     }
 
-    @GetMapping("/by_return_date")
+    @GetMapping("/return_date")
     public ResponseEntity<List<RentalResponseDto>> getAllRentalsByReturnDate(@RequestParam LocalDate date) {
         log.info("Retrieve all rentals by return date: {} attempt", date);
         return ResponseEntity.ok(rentalService.getAllRentalsByReturnDate(date));

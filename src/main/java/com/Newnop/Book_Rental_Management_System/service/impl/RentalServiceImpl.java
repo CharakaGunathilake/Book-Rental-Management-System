@@ -5,6 +5,7 @@ import com.Newnop.Book_Rental_Management_System.dto.response.RentalResponseDto;
 import com.Newnop.Book_Rental_Management_System.entity.Book;
 import com.Newnop.Book_Rental_Management_System.entity.Rental;
 import com.Newnop.Book_Rental_Management_System.entity.User;
+import com.Newnop.Book_Rental_Management_System.enums.AvailabilityStatus;
 import com.Newnop.Book_Rental_Management_System.enums.RentalStatus;
 import com.Newnop.Book_Rental_Management_System.exception.custom.BookServiceException;
 import com.Newnop.Book_Rental_Management_System.exception.custom.RentalServiceException;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -35,6 +37,7 @@ public class RentalServiceImpl implements RentalService {
     private final UserRepository userRepository;
 
     @Override
+    @Transactional
     public RentalResponseDto addRental(RentalRequestDto rentalRequestDto) {
         // Fetch and validate the book and user
         Book book = bookRepository.findById(rentalRequestDto.getBookId())
@@ -44,9 +47,11 @@ public class RentalServiceImpl implements RentalService {
 
         // Convert DTO to entity
         Rental rental = RentalMapper.toEntity(rentalRequestDto, book, user);
-
+        // Set book status to rented
+        book.setAvailabilityStatus(AvailabilityStatus.RENTED);
         try {
-            // Save entity
+            // Save entities
+            bookRepository.save(book);
             Rental savedRental = rentalRepository.save(rental);
             log.info("Rental with ID {} created successfully", savedRental.getId());
             // Convert saved entity back to DTO
@@ -97,11 +102,11 @@ public class RentalServiceImpl implements RentalService {
                             .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + rentalRequestDto.getUserId()))
             );
         }
-        LocalDate calculatedReturnDate = CalculationUtils.calculateReturnDate(rentalRequestDto.getExpectedReturnDate());
+        LocalDate calculatedReturnDate = CalculationUtils.calculateReturnDate(rentalRequestDto.getExpectedReturnDays());
         if (!existingRental.getExpectedReturnDate().equals(calculatedReturnDate)) {
             existingRental.setExpectedReturnDate(calculatedReturnDate);
             existingRental.setTotalAmount(
-                    CalculationUtils.calculateTotalAmount(rentalRequestDto.getExpectedReturnDate())
+                    CalculationUtils.calculateTotalAmount(rentalRequestDto.getExpectedReturnDays())
             );
         }
         return existingRental;
@@ -126,18 +131,31 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
+    @Transactional
     public void returnBook(Long rentalId) {
         // Validate rental ID
         ValidationUtils.validateId("Rental", rentalId);
         // Fetch existing rental
         Rental existingRental = rentalRepository.findById(rentalId)
                 .orElseThrow(() -> new EntityNotFoundException("Rental not found with ID: " + rentalId));
-        // Update the actual return date and status
-        existingRental.setActualReturnDate(LocalDate.now());
+
+        // Fetch Book
+        Book book = bookRepository.findById(existingRental.getBook().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with ID: " + rentalId));
+
+
+        LocalDate today = LocalDate.now();
+        // Update the actual return date, calculate rental fee and status
+        existingRental.setActualReturnDate(today);
         existingRental.setRentalStatus(RentalStatus.RETURNED);
+        existingRental.setTotalAmount(CalculationUtils.calculateRentalFee(existingRental.getRentedDate(), today));
+
+        // Update the book status to available
+        book.setAvailabilityStatus(AvailabilityStatus.AVAILABLE);
 
         try {
-            // Save updated rental
+            // Save updated book and rental
+            bookRepository.save(book);
             rentalRepository.save(existingRental);
             log.info("Rental with ID {} returned successfully", rentalId);
         } catch (DataAccessException e) {
@@ -147,16 +165,25 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
+    @Transactional
     public void cancelRental(Long rentalId) {
         // Validate rental ID
         ValidationUtils.validateId("Rental", rentalId);
         // Fetch existing rental
         Rental existingRental = rentalRepository.findById(rentalId)
                 .orElseThrow(() -> new EntityNotFoundException("Rental not found with ID: " + rentalId));
+
+        // Fetch Book
+        Book book = bookRepository.findById(existingRental.getBook().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with ID: " + rentalId));
+
         // Update the status to CANCELED
         existingRental.setRentalStatus(RentalStatus.CANCELED);
-        // Save updated rental
+        // Update Book status to AVAILABLE
+        book.setAvailabilityStatus(AvailabilityStatus.AVAILABLE);
         try {
+            // Save updated rental and book
+            bookRepository.save(book);
             rentalRepository.save(existingRental);
             log.info("Rental with ID {} canceled successfully", rentalId);
         } catch (DataAccessException e) {
@@ -167,7 +194,7 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
-    public BigDecimal calculateRentalFee(Long rentalId) {
+    public BigDecimal calculateRentalFee(Long rentalId, LocalDate returnDate) {
         // Validate rental ID
         ValidationUtils.validateId("Rental", rentalId);
         Rental existingRental;
@@ -175,10 +202,9 @@ public class RentalServiceImpl implements RentalService {
         existingRental = rentalRepository.findById(rentalId)
                 .orElseThrow(() -> new EntityNotFoundException("Rental not found with ID: " + rentalId));
         // Calculate the rental fee based on the actual return date and expected return date
-        BigDecimal rentalFee = CalculationUtils.calculateRentalFee(existingRental.getExpectedReturnDate(), existingRental.getActualReturnDate());
+        BigDecimal rentalFee = CalculationUtils.calculateRentalFee(existingRental.getExpectedReturnDate(), returnDate);
         log.info("Calculated rental fee for rental ID {}: {}", rentalId, rentalFee);
         return rentalFee;
-
     }
 
     @Override

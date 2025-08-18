@@ -28,7 +28,7 @@ public interface BookService {
 
     List<BookResponseDto> getAllBooksByQuality(String quality);
 
-    List<BookResponseDto> getAllBooksByPublishedYear(Integer year);
+    List<BookResponseDto> getAllBooksByPublishedYear(String year);
 
     List<BookResponseDto> getAllBooks();
 }

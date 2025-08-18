@@ -4,6 +4,5 @@ public enum AvailabilityStatus {
     AVAILABLE,
     RENTED,
     LOST,
-    DAMAGED,
     DELETED;
 }

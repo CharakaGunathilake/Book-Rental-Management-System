@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,5 +14,5 @@ public class RentalRequestDto {
     @NotNull(message = "User ID cannot be null")
     private Long userId;
     @NotNull(message = "Return date cannot be null")
-    private Integer expectedReturnDate;
+    private Integer expectedReturnDays;
 }

@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findByTitleIgnoreCase(String bookName);
 
-    List<Book> findAllByPublishedYear(Integer year);
+    List<Book> findAllByPublishedYear(String year);
 
     List<Book> findAllByBookQuality(BookQuality quality);
 

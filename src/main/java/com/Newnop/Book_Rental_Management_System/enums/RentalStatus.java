@@ -1,7 +1,7 @@
 package com.Newnop.Book_Rental_Management_System.enums;
 
 public enum RentalStatus {
-    ACTIVE,
+    RENTED,
     RETURNED,
     OVERDUE,
     CANCELED,

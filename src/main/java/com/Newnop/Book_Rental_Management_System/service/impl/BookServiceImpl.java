@@ -357,11 +357,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookResponseDto> getAllBooksByPublishedYear(Integer year) {
+    public List<BookResponseDto> getAllBooksByPublishedYear(String year) {
         // Check if year is valid
-        if (year == null || year < 0) {
+        if (year == null || year.isBlank()) {
             log.warn("Invalid published year: {}", year);
-            throw new IllegalArgumentException("Published year must be a valid positive integer");
+            throw new IllegalArgumentException("Published year must not be null or empty");
+        }
+
+        // Trim the year to avoid leading/trailing spaces
+        String finalYear = year.trim();
+
+        // Validate year format (e.g., YYYY)
+        if (!finalYear.matches("\\d{4}")) {
+            log.error("Invalid published year format: {}", finalYear);
+            throw new IllegalArgumentException("Published year must be in YYYY format");
         }
 
         // Fetch books by published year

@@ -32,7 +32,7 @@ public class Book extends PersistedObject {
     private AvailabilityStatus availabilityStatus;
     private String language;
     @Column(name = "published_year")
-    private Integer publishedYear;
+    private String publishedYear;
     @Column(name = "book_quality")
     @Enumerated(EnumType.STRING)
     private BookQuality bookQuality;

@@ -9,10 +9,7 @@ import com.Newnop.Book_Rental_Management_System.enums.RentalStatus;
 import com.Newnop.Book_Rental_Management_System.utils.book_utils.BookMapper;
 import com.Newnop.Book_Rental_Management_System.utils.user_utils.UserMapper;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 public class RentalMapper {
 
@@ -25,10 +22,10 @@ public class RentalMapper {
         return Rental.builder()
                 .book(book)
                 .user(user)
-                .rentalStatus(RentalStatus.ACTIVE)
+                .rentalStatus(RentalStatus.RENTED)
                 .rentedDate(LocalDate.now())// Set the current date as the rented date
-                .expectedReturnDate(CalculationUtils.calculateReturnDate(rentalDto.getExpectedReturnDate())) // Calculate expected return date
-                .totalAmount(CalculationUtils.calculateTotalAmount(rentalDto.getExpectedReturnDate())) // Calculate total amount based on expected return date
+                .expectedReturnDate(CalculationUtils.calculateReturnDate(rentalDto.getExpectedReturnDays())) // Calculate expected return date
+                .totalAmount(CalculationUtils.calculateTotalAmount(rentalDto.getExpectedReturnDays())) // Calculate total amount based on expected return date
                 .build();
     }
 

@@ -64,8 +64,8 @@ public class BookController {
         return ResponseEntity.ok(bookService.getBookByName(name));
     }
 
-    @GetMapping(params = "author_id")
-    public ResponseEntity<List<BookResponseDto>> getAllBooksByAuthorId(@RequestParam("author_id") Long id) {
+    @GetMapping(params = "author")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksByAuthorId(@RequestParam("author") Long id) {
         log.info("Retrieve Book by author id: {} attempt", id);
         return ResponseEntity.ok(bookService.getAllBooksByAuthorId(id));
     }
@@ -82,14 +82,14 @@ public class BookController {
         return ResponseEntity.ok(bookService.getAllBooksByQuality(quality));
     }
 
-    @GetMapping(params = "genre_id")
-    public ResponseEntity<List<BookResponseDto>> getAllBooksGenreId(@RequestParam("genre_id") Long id) {
+    @GetMapping(params = "genre")
+    public ResponseEntity<List<BookResponseDto>> getAllBooksGenreId(@RequestParam("genre") Long id) {
         log.info("Retrieve all Books by Genre_Id: {} attempt", id);
         return ResponseEntity.ok(bookService.getAllBooksByGenreId(id));
     }
 
     @GetMapping(params = "published_year")
-    public ResponseEntity<List<BookResponseDto>> getAllBooksByPublishedYear(@RequestParam("published_year") Integer publishedYear) {
+    public ResponseEntity<List<BookResponseDto>> getAllBooksByPublishedYear(@RequestParam("published_year") String publishedYear) {
         log.info("Retrieve all Books by published year: {} attempt", publishedYear);
         return ResponseEntity.ok(bookService.getAllBooksByPublishedYear(publishedYear));
     }
