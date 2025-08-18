@@ -25,7 +25,7 @@ The **Book Rental Management System** is designed for a small community library 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/CharakaGunathilake/Book-Rental-Management-System/edit/main/README.md
+   git clone https://github.com/CharakaGunathilake/Book-Rental-Management-System
    cd backend
    ```
 2. Configure **PostgreSQL database** and environment variables in `application.properties` or `application.yml`:
