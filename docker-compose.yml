@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   app:
     build: .
@@ -7,9 +9,9 @@ services:
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/book_rental_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${PGDATABASE}
+      SPRING_DATASOURCE_USERNAME: ${PGUSER}
+      SPRING_DATASOURCE_PASSWORD: ${PGPASSWORD}
     networks:
       - book-rent-network
 
@@ -18,17 +20,17 @@ services:
     container_name: book-rental-postgres
     restart: always
     environment:
-      POSTGRES_DB: ecommerce_db
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     networks:
       - book-rent-network
+    # Railway volumes are managed via UI, no VOLUME keyword needed
 
 volumes:
+  # Optional: you can define named volumes if needed, but Railway prefers using UI-managed volumes
   postgres_data: {}
 
 networks:
