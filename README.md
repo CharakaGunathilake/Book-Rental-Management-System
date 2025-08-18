@@ -11,7 +11,7 @@ The **Book Rental Management System** is designed for a small community library 
 
 **Technologies Used:**
 
-* Backend: Java 17+, Spring Boot
+* Backend: Java 21, Spring Boot
 * Frontend: React.js + TypeScript + Vite
 * Database: PostgreSQL
 * Version Control: Git
@@ -25,7 +25,7 @@ The **Book Rental Management System** is designed for a small community library 
 1. Clone the repository:
 
    ```bash
-   git clone <your-backend-repo-url>
+   git clone https://github.com/CharakaGunathilake/Book-Rental-Management-System/edit/main/README.md
    cd backend
    ```
 2. Configure **PostgreSQL database** and environment variables in `application.properties` or `application.yml`:
