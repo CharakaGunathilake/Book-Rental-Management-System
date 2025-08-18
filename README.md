@@ -47,9 +47,8 @@ The **Book Rental Management System** is designed for a small community library 
 
 ### **2. Database Setup**
 
-* Create a PostgreSQL database.
-* Run any SQL scripts (if provided) in the `/database` folder to create tables:
-
+* Create a PostgreSQL database (example: `book_rental_db`).
+* Tables will be automatically created and managed by JPA based on entities:
   * `books`
   * `authors`
   * `genres`
